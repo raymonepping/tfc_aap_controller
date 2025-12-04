@@ -59,3 +59,15 @@ output "topology" {
     }
   }
 }
+
+output "zos_ping_job_status" {
+  description = "Status and URL for the last z/OS Ping job triggered by Terraform"
+  value = {
+    job_type        = aap_job.zos_ping.job_type
+    status          = aap_job.zos_ping.status
+    inventory_id    = aap_job.zos_ping.inventory_id
+    job_template_id = aap_job.zos_ping.job_template_id
+    api_path        = aap_job.zos_ping.url
+    full_url        = "${var.aap_host}${aap_job.zos_ping.url}"
+  }
+}

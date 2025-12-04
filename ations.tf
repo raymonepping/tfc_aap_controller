@@ -1,16 +1,22 @@
 action "aap_eda_eventstream_post" "create" {
-  # IMPORTANT:
-  # This "type" (aap_eda_eventstream_post) MUST be implemented by some provider.
-  # The shape of this config block is completely provider-specific.
-
   config {
-    # TODO: fill in according to the provider that actually implements this action.
-    # For example, if this were an AWS Lambda action it would look like:
-    #
-    # function_name = "my_function"
-    # payload = jsonencode({ ... })
-    #
-    # For an AAP EDA action, you need to check the ansible/aap provider docs
-    # to see if it exposes an action type and what arguments it expects.
+    # Best-effort reasonable defaults, adjust based on provider errors
+
+    # Probably a number: how many items / records to pull or send
+    limit = 1
+
+    # Your AAP org name (from the UI)
+    organization_name = "Default"
+
+    # Likely something like "job_template" vs "workflow_job_template"
+    # This is a guess; provider will complain if it's wrong.
+    template_type = "job_template"
+
+    # Provider wants *something* here; the schema only tells us it's required,
+    # not its type. Treat it as a JSON blob to start with.
+    event_stream_config = jsonencode({
+      # TODO: fill this once the provider tells us what it expects.
+      # For now, an empty object just satisfies "required".
+    })
   }
 }

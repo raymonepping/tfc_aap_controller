@@ -50,16 +50,13 @@ resource "aap_job" "zos_ping" {
     aap_group.my_group,
   ]
 
-  # Quick & dirty: fire an HCP Action after this job is created
   lifecycle {
     action_trigger {
-      # This is the key idea:
-      # "after_create" is the moment the resource has been successfully created.
-      # Please confirm the exact enum string in the HCP docs.
-      events = ["after_create"]
+      # Single event value, as per the error message
+      event = "after_create"
 
-      # This must point at a real Action resource in your config / org.
-      # I cannot verify the exact type/name from here, so treat this as a placeholder.
+      # This must point to a real Action resource in your config / org
+      # Name is still a placeholder until it matches your actual action resource
       actions = [
         action.aap_eda_eventstream_post.create
       ]

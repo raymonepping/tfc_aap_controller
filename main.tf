@@ -52,8 +52,10 @@ resource "aap_job" "zos_ping" {
 
   lifecycle {
     action_trigger {
-      # Single event value, as per the error message
+      # Events are symbols, not strings, per the docs you pasted
       events = [after_create]
+
+      # This must match an action block defined elsewhere
       actions = [
         action.aap_eda_eventstream_post.create
       ]

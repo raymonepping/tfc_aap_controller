@@ -53,10 +53,7 @@ resource "aap_job" "zos_ping" {
   lifecycle {
     action_trigger {
       # Single event value, as per the error message
-      event = "after_create"
-
-      # This must point to a real Action resource in your config / org
-      # Name is still a placeholder until it matches your actual action resource
+      events = [after_create]
       actions = [
         action.aap_eda_eventstream_post.create
       ]
